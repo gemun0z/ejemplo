@@ -72,13 +72,37 @@ public class PersonaControllerTest {
 
     }
 
-    /*@Test
-    public void actualizarPersona() {
-    }*/
+    @Test
+    public void actualizarPersona() throws Exception {
+        Persona persona = new Persona();
+        persona.setId(1);
+        persona.setNombre("Juan");
+        persona.setApellido("Perez");
+        persona.setEdad(30);
 
-    /*@Test
-    public void eliminarPersona() {
-    }*/
+        doNothing().when(personaService).insertarPersona(any());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .put("/api/v1/persona")
+                .content(asJsonString(persona))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void eliminarPersona() throws Exception {
+
+        doNothing().when(personaService).eliminarPersona(anyInt());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/v1/persona/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+    }
 
     private static String asJsonString(final Object obj) {
         try {
