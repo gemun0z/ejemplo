@@ -18,8 +18,10 @@ public class PersonaEntity {
     private Integer id;
     @Column(name = "nombre", length = 50)
     private String nombre;
-    @Column(name = "apellido", length = 50)
-    private String apellido;
+    @Column(name = "apellido_paterno", length = 50)
+    private String apellidoPaterno;
+    @Column(name = "apellido_materno", length = 50)
+    private String apellidoMaterno;
     @Column(name = "edad")
     private Integer edad;
 

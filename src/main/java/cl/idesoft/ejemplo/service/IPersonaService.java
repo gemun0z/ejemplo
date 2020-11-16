@@ -1,10 +1,11 @@
 package cl.idesoft.ejemplo.service;
 
 import cl.idesoft.ejemplo.dto.Persona;
+import cl.idesoft.ejemplo.model.PersonaModel;
 
 public interface IPersonaService {
 
-    void insertarPersona(Persona persona);
+    PersonaModel insertarPersona(Persona persona);
 
     Persona obtenerPersona(Integer id);
 

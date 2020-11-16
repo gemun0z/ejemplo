@@ -1,7 +1,9 @@
 package cl.idesoft.ejemplo.service;
 
+import cl.idesoft.ejemplo.assembler.PersonaModelAssembler;
 import cl.idesoft.ejemplo.dto.Persona;
 import cl.idesoft.ejemplo.entity.PersonaEntity;
+import cl.idesoft.ejemplo.model.PersonaModel;
 import cl.idesoft.ejemplo.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +14,18 @@ public class PersonaService implements IPersonaService {
     @Autowired
     private PersonaRepository repository;
 
+    @Autowired
+    private PersonaModelAssembler assembler;
+
     @Override
-    public void insertarPersona(Persona persona) {
+    public PersonaModel insertarPersona(Persona persona) {
         PersonaEntity entity = new PersonaEntity();
         entity.setId(persona.getId());
         entity.setNombre(persona.getNombre());
-        entity.setApellido(persona.getApellido());
+        entity.setApellidoPaterno(persona.getApellidoPaterno());
+        entity.setApellidoMaterno(persona.getApellidoMaterno());
         entity.setEdad(persona.getEdad());
-        repository.save(entity);
+        return assembler.toModel(repository.save(entity));
     }
 
     @Override
@@ -28,7 +34,8 @@ public class PersonaService implements IPersonaService {
         Persona persona = new Persona();
         persona.setId(entity.getId());
         persona.setNombre(entity.getNombre());
-        persona.setApellido(entity.getApellido());
+        persona.setApellidoPaterno(entity.getApellidoPaterno());
+        persona.setApellidoMaterno(entity.getApellidoMaterno());
         persona.setEdad(entity.getEdad());
         return persona;
     }
@@ -43,7 +50,8 @@ public class PersonaService implements IPersonaService {
     public void actualizarPersona(Persona persona) {
         PersonaEntity entity = repository.findById(persona.getId()).get();
         entity.setNombre(persona.getNombre());
-        entity.setApellido(persona.getApellido());
+        entity.setApellidoPaterno(persona.getApellidoPaterno());
+        entity.setApellidoMaterno(persona.getApellidoMaterno());
         entity.setEdad(persona.getEdad());
         repository.save(entity);
     }

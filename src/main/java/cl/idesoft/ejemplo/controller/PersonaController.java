@@ -1,6 +1,7 @@
 package cl.idesoft.ejemplo.controller;
 
 import cl.idesoft.ejemplo.dto.Persona;
+import cl.idesoft.ejemplo.model.PersonaModel;
 import cl.idesoft.ejemplo.service.IPersonaService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ public class PersonaController {
     private IPersonaService personaService;
 
     @PostMapping(path = "/persona", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> crearPersona(@RequestBody Persona persona) {
-        personaService.insertarPersona(persona);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<PersonaModel> crearPersona(@RequestBody Persona persona) {
+        PersonaModel personaModel = personaService.insertarPersona(persona);
+        return ResponseEntity.status(HttpStatus.CREATED).body(personaModel);
     }
 
     @GetMapping(path = "/persona/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -11,7 +11,8 @@ public class Persona {
 
     private int id;
     private String nombre;
-    private String apellido;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
     private int edad;
 
 }
